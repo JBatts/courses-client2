@@ -1,9 +1,12 @@
 <body>
     <h1>Courses</h1>
+    <form action="">
     <select name="list" id="list"></select>
     <div id="courseTarget">?</div>
     <button id="saveBtn">Save</button>
     <button id="deleteBtn">Delete</button>
+    <button id="newBtn">Clear Form</button>
+</form>
     <script>
         function render(data) {
             data.forEach(o => list.appendChild(new Option(o.courseName + " - #" + o.id, o.id)));
