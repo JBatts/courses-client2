@@ -27,12 +27,12 @@
         async function save() {
             const bodyData = {
                 // "courseId" : courseId.value,
-                "courseName" : courseName.value,
-                "dept" : courseDept.value,
-                "courseNum" : courseNum.value,
-                "instructor" : instructor.value,
-                "startDate" : startDate.value,
-                "numDays" : numDays.value
+                "courseName": courseName.value,
+                "dept": courseDept.value,
+                "courseNum": courseNum.value,
+                "instructor": instructor.value,
+                "startDate": startDate.value,
+                "numDays": numDays.value
             };
             if (courseId.value) {
                 // Regular save - PUT (Update)
@@ -54,8 +54,9 @@
                     }
                 });
                 const data = await req.json();
-                courseId.value = data.courseId;
+                // courseId.value = data.courseId;
             }
+            window.location.reload();
         };
 
         document.addEventListener("DOMContentLoaded", async () => {
@@ -64,7 +65,11 @@
             list.addEventListener("change", () => {
                 const courseId = list.value;
                 const course = data.find(o => o.id == courseId);
-                const inputDate = new Date(course.startDate + " 2024");
+                let inputDate = new Date(course.startDate);
+                if (course.startDate.length != 10) {
+                    inputDate = new Date(course.startDate + " 2024");
+                };
+
 
                 const year = inputDate.getFullYear();
                 const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
