@@ -1,17 +1,44 @@
 <body>
     <h1>Courses</h1>
     <form action="">
-    <select name="list" id="list"></select>
-    <div id="courseTarget">?</div>
-    <button id="saveBtn">Save</button>
-    <button id="deleteBtn">Delete</button>
-    <button id="newBtn">Clear Form</button>
-</form>
+        <select name="list" id="list"></select>
+        <div id="courseTarget">?</div>
+        <button id="saveBtn">Save</button>
+        <button id="deleteBtn">Delete</button>
+        <button id="newBtn">Clear Form</button>
+    </form>
     <script>
         function render(data) {
             data.forEach(o => list.appendChild(new Option(o.courseName + " - #" + o.id, o.id)));
+        };
+
+        function blank(){
+            courseTarget.innerHTML = `
+                <label>Course ID: <br> <input value="" id="courseId" readonly="readonly"></label><br>
+                <label>Course Name: <br> <input value="" id="courseName"></label><br>
+                <label>Course Deparment: <br> <input value="" id="courseDept"></label><br>
+                <label>Course Number: <br> <input type="number" value="" id="courseNum"></label><br>
+                <label>Course Instructor: <br> <input value="" id="instructor"></label><br>
+                <label>Course Start Date: <br> <input type="date" value="" id="startDate"></label><br>
+                <label>Course Number of Days: <br> <input type="number" value="" id="numDays"></label><br>
+                `;
+        };
+
+       async function save(){
+            if(courseId.value){
+                // Regular save - PUT (Update)
+                const req = await fetch("http://localhost:8081/api/courses" + courseId.value, {
+                method: "PUT"
+            });
+            const data = await req.json();
+            }else{
+                // New save - POST (Create)
+            }
         }
+
         document.addEventListener("DOMContentLoaded", async () => {
+            saveBtn.addEventListener("click", save)
+            newBtn.addEventListener("click", blank)
             list.addEventListener("change", () => {
                 const courseId = list.value;
                 const course = data.find(o => o.id == courseId);
@@ -45,12 +72,12 @@
 
             const data = await req.json(); // parse
             // Same as end of line 13
-            render(data);
-
             window.data = data; // Make global var
             // Or
             // render(await req.json());
             // parse and then call render without data var
+            render(data);
+            blank();
 
         }); // end load
     </script>
