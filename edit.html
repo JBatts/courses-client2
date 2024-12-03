@@ -1,0 +1,17 @@
+<body>
+    <h1>Edit Course</h1>
+    <div id="item">The items go here</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", async ()=>{
+            const id = localStorage.selectedCourseId;
+            const response = await fetch("http://localhost:8081/api/courses/" + id);
+            const c = await response.json();
+            item.innerHTML = `
+            Course Name: ${c.courseName}<br> 
+            Course Department: ${c.dept}<br>
+            Instructor: ${c.instructor}<br>
+            `
+        });
+
+    </script>
+</body>
