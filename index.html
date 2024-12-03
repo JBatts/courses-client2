@@ -1,12 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
 <body>
     <h1>Courses</h1>
-    <form action="">
+    <form>
         <select name="list" id="list"></select>
         <div id="courseTarget">?</div>
         <button id="saveBtn">Save</button>
         <button id="deleteBtn">Delete</button>
         <button id="newBtn">Clear Form</button>
     </form>
+    
     <script>
         function render(data) {
             data.forEach(o => list.appendChild(new Option(o.courseName + " - #" + o.id, o.id)));
@@ -14,13 +23,13 @@
 
         function blank() {
             courseTarget.innerHTML = `
-                <label>Course ID: <br> <input value="" id="courseId" readonly="readonly"></label><br>
+                <label>Course ID: <br> <input value="" id="courseId" ></label><br>
                 <label>Course Name: <br> <input value="" id="courseName"></label><br>
                 <label>Course Deparment: <br> <input value="" id="courseDept"></label><br>
                 <label>Course Number: <br> <input type="number" value="" id="courseNum"></label><br>
                 <label>Course Instructor: <br> <input value="" id="instructor"></label><br>
                 <label>Course Start Date: <br> <input type="date" value="" id="startDate"></label><br>
-                <label>Course Number of Days: <br> <input type="number" value="" id="numDays"></label><br>
+                <label>Course Number of Days: <br> <input type="number" value="" id="numDays"></label><br><br>
                 `;
         };
 
@@ -94,7 +103,7 @@
                 <label>Course Number: <br> <input type="number" value="${course.courseNum}" id="courseNum"></label><br>
                 <label>Course Instructor: <br> <input value="${course.instructor}" id="instructor"></label><br>
                 <label>Course Start Date: <br> <input type="date" value="${formattedDate}" id="startDate"></label><br>
-                <label>Course Number of Days: <br> <input type="number" value="${course.numDays}" id="numDays"></label><br>
+                <label>Course Number of Days: <br> <input type="number" value="${course.numDays}" id="numDays"></label><br><br>
                 `;
             }); // end change listener
 
@@ -120,3 +129,4 @@
         }); // end load
     </script>
 </body>
+</html>
