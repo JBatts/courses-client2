@@ -24,6 +24,16 @@
                 `;
         };
 
+        async function del(){
+            const r = await fetch("http://localhost:8081/api/courses/" + courseId.value, {
+                method : "DELETE",
+                headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+            });
+            window.location.reload();
+        };
+
         async function save() {
             const bodyData = {
                 // "courseId" : courseId.value,
@@ -62,6 +72,7 @@
         document.addEventListener("DOMContentLoaded", async () => {
             saveBtn.addEventListener("click", save)
             newBtn.addEventListener("click", blank)
+            deleteBtn.addEventListener("click", del)
             list.addEventListener("change", () => {
                 const courseId = list.value;
                 const course = data.find(o => o.id == courseId);
@@ -93,7 +104,7 @@
             // }).then(req => req.json()).then(render)
 
             // Using async and await instead of .then()
-            const req = await fetch("http://localhost:8081/api/courses", {
+            const req = await fetch("http://localhost:8081/api/courses/", {
                 method: "GET"
             }); // get json text
 
