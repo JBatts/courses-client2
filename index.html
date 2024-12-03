@@ -12,7 +12,7 @@
             data.forEach(o => list.appendChild(new Option(o.courseName + " - #" + o.id, o.id)));
         };
 
-        function blank(){
+        function blank() {
             courseTarget.innerHTML = `
                 <label>Course ID: <br> <input value="" id="courseId" readonly="readonly"></label><br>
                 <label>Course Name: <br> <input value="" id="courseName"></label><br>
@@ -24,17 +24,39 @@
                 `;
         };
 
-       async function save(){
-            if(courseId.value){
+        async function save() {
+            const bodyData = {
+                // "courseId" : courseId.value,
+                "courseName" : courseName.value,
+                "dept" : courseDept.value,
+                "courseNum" : courseNum.value,
+                "instructor" : instructor.value,
+                "startDate" : startDate.value,
+                "numDays" : numDays.value
+            };
+            if (courseId.value) {
                 // Regular save - PUT (Update)
-                const req = await fetch("http://localhost:8081/api/courses" + courseId.value, {
-                method: "PUT"
-            });
-            const data = await req.json();
-            }else{
+                const req = await fetch("http://localhost:8081/api/courses/" + courseId.value, {
+                    method: "PUT",
+                    body: JSON.stringify(bodyData),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                });
+                blank();
+            } else {
                 // New save - POST (Create)
+                const req = await fetch("http://localhost:8081/api/courses/", {
+                    method: "POST",
+                    body: JSON.stringify(bodyData),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                });
+                const data = await req.json();
+                courseId.value = data.courseId;
             }
-        }
+        };
 
         document.addEventListener("DOMContentLoaded", async () => {
             saveBtn.addEventListener("click", save)
