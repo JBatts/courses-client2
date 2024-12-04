@@ -22,9 +22,11 @@
             });
             return e;
         }
+
         function render(courses) {
             courses.forEach(c => list.appendChild(Course(c)));
         };
+        
         document.addEventListener("DOMContentLoaded", async () => {
             const response = await fetch("http://localhost:8081/api/courses/");
             const courses = await response.json();
